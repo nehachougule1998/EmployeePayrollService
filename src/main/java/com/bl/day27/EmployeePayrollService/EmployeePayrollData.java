@@ -1,42 +1,19 @@
 package com.bl.day27.EmployeePayrollService;
 
 public class EmployeePayrollData {
-	private int id;
-    private double salary;
-    private String name;
+	 
+		public int id;
+		public String name;
+		public double salary;
+		
+		public EmployeePayrollData(int id, String name, double salary) {
+			this.id = id;
+			this.name = name;
+			this.salary = salary;
+		}
 
-    public EmployeePayrollData(int id, double salary, String name) {
-        this.id = id;
-        this.salary = salary;
-        this.name = name;
-    }
-
-    public EmployeePayrollData() {
-    }
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-    public double getSalary() {
-        return salary;
-    }
-    public void setSalary(double salary) {
-        this.salary = salary;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-    @Override
-    public String toString() {
-        return "EmployeePayrollData [id=" + id + ", salary=" + salary + ", name=" + name + "]";
-    }
-
-}
+		@Override
+		public String toString() {
+			return "id =" + id + ",name =" + name + ",salary =" + salary;
+		}
+	}
