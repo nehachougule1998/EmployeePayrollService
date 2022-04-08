@@ -4,13 +4,15 @@ import java.io.File;
 
 public class FileUtils {
 	
-	public static boolean deleteFiles(File contentsToDelete) {
-		File[] allContents = contentsToDelete.listFiles();
-		if (allContents != null) {
-			for (File file : allContents) {
-				deleteFiles(file);
+	public static boolean deleteFolder(File file) {
+		for (File subFile : file.listFiles()) {
+			if (subFile.isDirectory()) {
+				deleteFolder(subFile);
+			} 
+			else {
+				subFile.delete();
 			}
 		}
-		return contentsToDelete.delete();
+		return file.delete();
 	}
 }
