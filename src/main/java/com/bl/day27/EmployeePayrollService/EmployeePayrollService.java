@@ -11,44 +11,38 @@ public class EmployeePayrollService {
 		CONSOLE_IO, FILE_IO, DB_IO, REST_IO
 	}
 
+	public List<EmployeePayrollData> employeePayrollList = new ArrayList<>();
 
-	private List<EmployeePayrollData> emplyeePayrollList;
-	
 	public EmployeePayrollService() {
-		
 	}
-	
-	public EmployeePayrollService(List<EmployeePayrollData> emplyeePayrollList) {
-		this.emplyeePayrollList = emplyeePayrollList;
+
+	public EmployeePayrollService(List<EmployeePayrollData> employeePayrollList) {
+		this.employeePayrollList = employeePayrollList;
 	}
-	
-	private void showData() {
-		System.out.println("Employee data is : " +emplyeePayrollList);
-	}
-	
-	private void writeData(Scanner data) throws IOException {
-		
-		System.out.println("Enter Employee name : ");
-	    String name = data.nextLine();
-	    System.out.println("Enter Employee ID : ");
-	    int id = data.nextInt();
-	    System.out.println("Enter Employee salary : ");
-	    double salary = data.nextDouble();
-	   
-		EmployeePayrollData empData = new EmployeePayrollData(id, name, salary);
-		emplyeePayrollList.add(empData);
-	}
-	
 
 	public static void main(String[] args) throws IOException {
-		
-		Scanner input = new Scanner(System.in);
-		ArrayList<EmployeePayrollData> emplyeePayrollList = new ArrayList<EmployeePayrollData>();
-		EmployeePayrollService employeePayrollService = new EmployeePayrollService(emplyeePayrollList);
-		employeePayrollService.writeData(input);
-		employeePayrollService.showData();
-		
-		
+		System.out.println("WelCome to Employee Payroll Service");
+		ArrayList<EmployeePayrollData> employeePayrollList = new ArrayList<EmployeePayrollData>();
+		EmployeePayrollService employeePayrollService = new EmployeePayrollService(employeePayrollList);
+		Scanner consoleInputReader = new Scanner(System.in);
+		employeePayrollService.readEmployeeData(consoleInputReader);
+		employeePayrollService.writeEmployeeData(IOService.CONSOLE_IO);
+	}
 
+	void writeEmployeeData(IOService ioService) {
+		if (ioService.equals(IOService.CONSOLE_IO))
+			System.out.println("\nwriting employee payroll data to console\n" + employeePayrollList);
+		else if (ioService.equals(IOService.FILE_IO))
+			new EmployeePayrollFileIOService().writeData(employeePayrollList);
+	}
+
+	private void readEmployeeData(Scanner consoleInputReader) throws IOException {
+		System.out.println("Enter Employee id: ");
+		int id = consoleInputReader.nextInt();
+		System.out.println("Enter Employee name ");
+		String name = consoleInputReader.next();
+		System.out.println("Enter Employee salary ");
+		double salary = consoleInputReader.nextDouble();
+		employeePayrollList.add(new EmployeePayrollData(id, name, salary));
 	}
 }
